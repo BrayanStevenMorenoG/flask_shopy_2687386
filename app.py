@@ -1,10 +1,12 @@
 #Importaciones del proyecto
 
-from flask import Flask
+from flask import Flask, render_template
 from config import Config
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
 
 #Iniciarlizar el objeto flask 
 app = Flask(__name__)
@@ -13,6 +15,15 @@ app.config.from_object(Config)
 #Iniializar el objeto SQLalchemy
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+# Crear formulario de registro de Clientes
+
+class RegistroClienteForm(FlaskForm):
+    username = StringField("Nombre de Usuario")
+    email = StringField("Email")
+    password = PasswordField("Contraseña")
+    submit = SubmitField("Registrar")
+
 
 #Modelos - entidades del proyecto 
 class Cliente(db.Model):
@@ -41,3 +52,24 @@ class Detalles(db.Model):
     producto_id = db.Column(db.Integer, db.ForeignKey('productos.id'))
     venta_id = db.Column(db.Integer, db.ForeignKey('ventas.id'))
     cantidad = db.Column(db.Integer)
+
+@app.route('/clientes/create', 
+           methods = ['GET','POST'])
+def crear_cliente():
+    form = RegistroClienteForm()
+    if form.validate_on_submit():
+        c = Cliente(username = form.username.data, 
+                    password = form.password.data, 
+                    email = form.email.data)
+        db.session.add(c)
+        db.session.commit()
+        return 'Cliente registrado'
+    return render_template('Registro.html', form = form)
+
+@app.route('/clientes', 
+           methods = ['GET'])
+def listar():
+    # Seleccionar todos los clientes
+    clientes = Cliente.query.all()
+    return render_template('listar.html', 
+                           clientes = clientes)

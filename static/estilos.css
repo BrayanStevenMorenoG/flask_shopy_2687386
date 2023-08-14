@@ -1,0 +1,16 @@
+body{
+    background-color: aqua;
+}
+
+.sex{
+    background-color: antiquewhite;
+    width: 99%;
+}
+
+.nepe{
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    background-color: aquamarine;
+    margin: auto;
+}
