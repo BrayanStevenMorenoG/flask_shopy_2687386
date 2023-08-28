@@ -4,11 +4,12 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from .mi_blueprint import mi_blueprint
 from app.productos import productos
-
+from flask_bootstrap import Bootstrap
 
 # Inicializar el objeto flask 
 app = Flask(__name__)
 app.config.from_object(Config)
+bootstrap = Bootstrap(app)
 
 
 # Iniciar el objeto de SQLAlchemy
