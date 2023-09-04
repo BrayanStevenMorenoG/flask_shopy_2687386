@@ -66,6 +66,7 @@ def crear_cliente():
         return 'Cliente registrado'
     return render_template('Registro.html', form = form)
 
+
 @app.route('/clientes', 
            methods = ['GET'])
 def listar():
