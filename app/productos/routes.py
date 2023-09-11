@@ -4,7 +4,6 @@ from .forms  import NewProductForm, EditProductForm
 import app
 import os
 
-
 @productos.route('/crear',  methods = ['GET', 'POST'])
 def crear():        
         producto = app.models.Producto()
@@ -26,7 +25,7 @@ def crear():
 def listar():
     # Seleccionar los productos
     productos = app.models.Producto.query.all()
-    return render_template("listar.html", productos = productos)
+    return render_template("listarpro.html", productos = productos)
 
 @productos.route('editar/<producto_id>', methods = ['GET', 'POST'])
 def editar(producto_id):
