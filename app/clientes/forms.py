@@ -17,7 +17,6 @@ class CLientForm():
                            Email(message="Debe ser un correo electrónico válido")
                        ])
 
-
 class NewClientForm(FlaskForm, CLientForm):
     submit = SubmitField("Crear")
 

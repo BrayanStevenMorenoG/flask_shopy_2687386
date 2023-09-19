@@ -1,5 +1,6 @@
 from app.clientes import clientes
 from flask import render_template, redirect , flash
+from flask_login import login_required
 from .forms  import NewClientForm, EditClientForm
 import app
 
@@ -17,6 +18,7 @@ def crear():
         return render_template('crear.html', form = form)
 
 @clientes.route("/listar")
+@login_required
 def listar():
      clientes = app.models.Cliente.query.all()
      return render_template("listarusu.html", clientes = clientes)

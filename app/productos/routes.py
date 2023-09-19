@@ -1,5 +1,6 @@
 from app.productos import productos
 from flask import render_template, redirect , flash
+from flask_login import login_required
 from .forms  import NewProductForm, EditProductForm
 import app
 import os
@@ -22,6 +23,7 @@ def crear():
         return render_template('crear.html', form = form)
 
 @productos.route('/listar')
+@login_required
 def listar():
     # Seleccionar los productos
     productos = app.models.Producto.query.all()
